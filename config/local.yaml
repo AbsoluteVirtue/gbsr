@@ -1,0 +1,4 @@
+debug: true
+
+host: localhost
+port: 1337
