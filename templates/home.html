@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <h2>Ground Branch server list</h2>
+
+        <table>
+            <tr>
+            <th>PW</th>
+            <th>Name</th>
+            <th>Map</th>
+            <th>Players</th>
+            <th>VAC</th>
+            </tr>
+            {% for server in data %}
+                <tr>
+                <td>{{ server.password_protected }}</td>
+                <td>{{ server.server_name }}</td>
+                <td>{{ server.map }}</td>
+                <td>{{ '%s/%s' % (server.player_count, server.max_players) }}</td>
+                <td>{{ server.vac_enabled }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        No. of players: {{ total_player_count }}
+
+    </body>
+</html>

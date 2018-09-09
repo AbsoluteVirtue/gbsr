@@ -1,4 +1,5 @@
 from aiohttp import web
+import aiohttp_jinja2
 
 from utils import steam
 
@@ -27,4 +28,5 @@ class Servers(Base):
 
     async def get(self):
         data = steam.get_server_list_with_players()
-        return web.json_response({'data': data})
+        response = aiohttp_jinja2.render_template('home.html', self.request, context=data)
+        return response
