@@ -12,7 +12,6 @@ def get_server_list_with_players():
                 with valve.source.a2s.ServerQuerier(address) as server:
                     info = server.info()
                     players = server.players()
-                # print("{player_count}/{max_players} {server_name}".format(**info))
                 s = info.values
                 count += info.values['player_count']
                 s.pop('server_type', None)
