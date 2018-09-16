@@ -13,7 +13,7 @@ if __name__ == '__main__':
     app = web.Application()
 
     parser = argparse.ArgumentParser(description='Process arguments.')
-    parser.add_argument('--config_file', dest='config_file', default='./config/dev.yaml', help='config file path')
+    parser.add_argument('--config_file', dest='config_file', default='./config/local.yaml', help='config file path')
 
     path = parser.parse_args().config_file
 

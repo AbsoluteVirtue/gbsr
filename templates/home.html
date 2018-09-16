@@ -8,7 +8,13 @@
                 width: 100%;
             }
 
-            td, th {
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            td {
                 border: 1px solid #dddddd;
                 text-align: left;
                 padding: 8px;
@@ -19,7 +25,9 @@
             }
         </style>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Server radar</title>
+        <link rel="icon" type="image/png" href="/static/img/favicon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
 
@@ -27,24 +35,25 @@
 
         <table>
             <tr>
-            <th>PW</th>
-            <th>Name</th>
-            <th>Map</th>
-            <th>Players</th>
-            <th>VAC</th>
+                <th>PW</th>
+                <th>Name</th>
+                <th>Map</th>
+                <th>Players</th>
+                <th>VAC</th>
             </tr>
             {% for server in data %}
                 <tr>
-                <td>{{ server.password_protected }}</td>
-                <td>{{ server.server_name }}</td>
-                <td>{{ server.map }}</td>
-                <td>{{ '%s/%s' % (server.player_count, server.max_players) }}</td>
-                <td>{{ server.vac_enabled }}</td>
+                    <td>{% if server.password_protected %}<i class="fa fa-lock"></i>{% else %}{% endif %}</td>
+                    <td>{{ server.server_name }}</td>
+                    <td>{{ server.map }}</td>
+                    <td>{{ '%s/%s' % (server.player_count, server.max_players) }}</td>
+                    <td>{% if server.vac_enabled %}<i class="fa fa-shield-alt"></i>{% else %}{% endif %}</td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td colspan="3">Total no. of players:</td>
+                <td>{{ total_player_count }}</td>
+            </tr>
         </table>
-
-        No. of players: {{ total_player_count }}
-
     </body>
 </html>
