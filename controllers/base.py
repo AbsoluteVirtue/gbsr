@@ -10,23 +10,9 @@ class Base(web.View):
         pass
 
 
-class NotFound(web.View):
-
-    @staticmethod
-    async def get():
-        return web.json_response(status=404)
-
-
-class Forbidden(web.View):
-
-    @staticmethod
-    async def get():
-        return web.json_response(status=403)
-
-
 class Servers(Base):
 
     async def get(self):
-        data = steam.get_server_list_with_players()
+        data = await steam.get_server_list_with_players(self.request.app['logger'])
         response = aiohttp_jinja2.render_template('home.html', self.request, context=data)
         return response

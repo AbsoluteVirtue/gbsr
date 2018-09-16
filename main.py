@@ -1,31 +1,35 @@
-from aiohttp import web, ClientSession
+from aiohttp import web
+import argparse
+import os.path
 import aiohttp_jinja2
 import jinja2
-import pathlib
+import logging
 
 from routes import setup_routes
-from settings import get_config
-
-BASE_DIR = pathlib.Path(__file__).parent
-
-
-async def close_session(app):
-    app['http'].close()
-
-
-async def on_shutdown(app):
-    await close_session(app)
+from settings import get_config, get_logger, close_session, on_shutdown
 
 
 if __name__ == '__main__':
     app = web.Application()
 
-    app['config'] = get_config(BASE_DIR / 'config' / 'local.yaml')
+    parser = argparse.ArgumentParser(description='Process arguments.')
+    parser.add_argument('--config_file', dest='config_file', default='./config/dev.yaml', help='config file path')
+
+    path = parser.parse_args().config_file
+
+    app['config'] = get_config(path)
+    app['logger'] = get_logger()
+
     setup_routes(app)
 
     app.on_cleanup.append(close_session)
     app.on_shutdown.append(on_shutdown)
 
-    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(searchpath=str(BASE_DIR / 'templates')))
+    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(os.path.abspath('templates')))
 
-    web.run_app(app, host=app['config']['host'], port=app['config']['port'])
+    logging.basicConfig(level=logging.INFO)
+    logging.info('Web server started on port %s' % app['config']['port'])
+    logging.info('Config file: %s' % path)
+
+    web.run_app(app, host=app['config']['host'], port=app['config']['port'],
+                access_log_format='%t "%r" %s %Tf ms -ip:"%a" -ref:"%{Referer}i"')
