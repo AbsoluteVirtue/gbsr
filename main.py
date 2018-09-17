@@ -6,7 +6,7 @@ import jinja2
 import logging
 
 from routes import setup_routes
-from settings import get_config, get_logger, close_session, on_shutdown
+from settings import get_config, get_logger
 
 
 if __name__ == '__main__':
@@ -21,9 +21,6 @@ if __name__ == '__main__':
     app['logger'] = get_logger()
 
     setup_routes(app)
-
-    app.on_cleanup.append(close_session)
-    app.on_shutdown.append(on_shutdown)
 
     aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(os.path.abspath('templates')))
 

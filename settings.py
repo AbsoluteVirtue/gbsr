@@ -7,10 +7,6 @@ async def close_session(app):
     app['http'].close()
 
 
-async def on_shutdown(app):
-    await close_session(app)
-
-
 def get_config(path):
     config_file = os.path.abspath(path)
     with open(config_file) as f:
