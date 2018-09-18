@@ -1,4 +1,4 @@
 debug: false
 
-host: 178.254.24.12
+host: 127.0.0.1
 port: 1337
