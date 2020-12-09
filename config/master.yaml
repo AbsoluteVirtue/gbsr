@@ -2,3 +2,6 @@ debug: false
 
 host: 127.0.0.1
 port: 1337
+
+discord_token: _
+discord_guild: _
