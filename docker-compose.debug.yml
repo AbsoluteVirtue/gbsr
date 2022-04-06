@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  gbsr:
+    image: gbsr
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:1337 bot.py "]
+    ports:
+      - 1337:1337

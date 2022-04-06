@@ -169,3 +169,5 @@ fabric.properties
 Pipfile
 Pipfile.lock
 config/local.yaml
+
+.vscode/*

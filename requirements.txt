@@ -1,0 +1,6 @@
+discord
+discord.py
+python-valve
+PyYAML
+
+python_version == '3.8'
