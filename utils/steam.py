@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 import valve.source
 import valve.source.a2s
