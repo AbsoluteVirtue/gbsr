@@ -34,6 +34,7 @@
         <h2>Ground Branch server list</h2>
 
         <table>
+
             <tr>
                 <th>PW</th>
                 <th>Name</th>
@@ -47,13 +48,15 @@
                     <td>{{ server.server_name }}</td>
                     <td>{{ server.map }}</td>
                     <td>{{ '%s/%s' % (server.player_count, server.max_players) }}</td>
-                    <td>{% if server.vac_enabled %}<i class="fa fa-shield-alt"></i>{% else %}{% endif %}</td>
+                    <td>{% if server.vac_enabled %}<i class="fa fa-shield"></i>{% else %}{% endif %}</td>
                 </tr>
             {% endfor %}
             <tr>
                 <td colspan="3">Total no. of players:</td>
                 <td>{{ total_player_count }}</td>
             </tr>
+
         </table>
+
     </body>
 </html>
